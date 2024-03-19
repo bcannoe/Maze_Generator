@@ -45,8 +45,6 @@ void solveMazeDFS (std::vector<std::vector<char>> maze) {
   coord startCoord;
   std::vector<std::vector<char>> visited = maze;
   startCoord = findStartCoord(maze);
-  
-  //std::cout << startCoord.x << "," << startCoord.y << '\n';
   coord curIndex = startCoord;
   std::stack<char> path;
   path.push(startCoord);
