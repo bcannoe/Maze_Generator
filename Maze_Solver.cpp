@@ -21,7 +21,6 @@ int main() {
   
   newMaze.loadMaze(filename);
   Coordinate startCoord = findStartCoordinate(newMaze);
-  //std::cout << startCoord.getX() << ", " << startCoord.getY() << ", " << startCoord.getTile() << std::endl;
   newMaze.mazeDFS(startCoord);
   return 0;
 }

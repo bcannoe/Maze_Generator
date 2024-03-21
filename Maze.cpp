@@ -46,44 +46,6 @@ void Maze::loadMaze(std::string filename) {
     file.close();
 }
 
-// First find the start coordinate
-// Check each adjacent node for a valid move to unvisited node
-// move down valid path
-// if there is no valid path pop nodes off the stack until there is a path.
-/*Coordinate Maze::mazeDFS(Coordinate start) {
-    std::stack<Coordinate> history;
-    history.push(start);
-    std::cout << prevCoord.getX() << ", " << prevCoord.getY() << ", " << prevCoord.getTile() << std::endl;
-    // This means we visited this node.
-    mazeLayout[prevCoord.getX()][prevCoord.getY()].setTile('.');
-    printMaze();
-
-    if (prevCoord.getTile() == 'G') {
-        mazeLayout[prevCoord.getX()][prevCoord.getY()].setTile('*');
-        return prevCoord;
-    }
-
-    Coordinate curCoord = nextCoord(prevCoord);
-    mazeLayout[curCoord.getX()][curCoord.getY()].visit();
-    mazeLayout[curCoord.getX()][curCoord.getY()].setTile('@');
-    
-    sleep(1);
-    //printMaze();
-    if (curCoord.getX() == prevCoord.getX() && curCoord.getY() == prevCoord.getY()) {
-        mazeLayout[curCoord.getX()][curCoord.getY()].setTile(' ');
-        Coordinate result = mazeDFS(prevCoord);
-    }
-    else {
-        Coordinate result = mazeDFS(curCoord);
-    }
-    if (curCoord.getTile() == 'G') {
-        return curCoord;
-    }
-
-    mazeLayout[curCoord.getX()][curCoord.getY()].setTile(' ');
-    return mazeDFS(prevCoord);
-}*/
-
 Coordinate Maze::mazeDFS(Coordinate start) {
     std::stack<Coordinate> history;
     history.push(start);
@@ -111,25 +73,15 @@ Coordinate Maze::mazeDFS(Coordinate start) {
         history.push(next);
         if (!history.empty()) {
             if (validMove(next)) {
-                std::cout << "Got Here 1" << std::endl;
                 history.push(next);
             } else {
-                std::cout << "Got Here 3" << std::endl;
-                std::cout << history.top().getX() << ", " << history.top().getY() << ", " << history.top().getTile() << std::endl;
                 while(!history.empty() && !validMove(history.top())) {
                 
                     history.pop();
             }
         }
-        std::cout << "Got Here 2" << std::endl;
         
-       /* if (next.getTile() != '#') {
-            history.push(next);
-        } else {
-            while(!history.empty() && nextCoord(history.top()).getTile() == '#') {
-                std::cout << "Got Here" << std::endl;
-                history.pop();
-            }*/
+       
         }
     }
 
