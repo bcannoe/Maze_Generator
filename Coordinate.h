@@ -4,6 +4,8 @@ public:
   int getX();
   int getY();
   char getTile();
+  void setTile(char);
+  bool visit();
   bool isVisited();
 private:
   int x;                              // x-axis position

@@ -18,6 +18,14 @@ char Coordinate::getTile() {
   return tile;
 }
 
+void Coordinate::setTile(char newTile) {
+  tile = newTile;
+}
+
+bool Coordinate::visit() {
+  visited = true;
+  return true;
+}
 bool Coordinate::isVisited() {
   return visited;
 }

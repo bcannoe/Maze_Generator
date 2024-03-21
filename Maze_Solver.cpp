@@ -16,13 +16,13 @@ Coordinate findStartCoordinate(Maze findCoord) {
 }
 
 int main() {
-  std::string filename = "maze_1.txt";
+  std::string filename = "mazeBadDFSRuntime.txt";
   Maze newMaze;
   
   newMaze.loadMaze(filename);
   Coordinate startCoord = findStartCoordinate(newMaze);
-  std::cout << startCoord.getX() << ", " << startCoord.getY() << ", " << startCoord.getTile() << std::endl;
-
+  //std::cout << startCoord.getX() << ", " << startCoord.getY() << ", " << startCoord.getTile() << std::endl;
+  newMaze.mazeDFS(startCoord);
   return 0;
 }
 
