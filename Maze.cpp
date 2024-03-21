@@ -1,11 +1,22 @@
 #include "Maze.h"
 #include <fstream>
 
-Maze::Maze() {
+Maze::Maze() {}
+
+int Maze::getRow() {
+    return row;
+}
+
+int Maze::getCol() {
+    return col;
+}
+
+std::vector<std::vector<Coordinate>> Maze::getMazeLayout() {
+    return mazeLayout;
 }
 
 void Maze::loadMaze(std::string filename) {
-    //std::cout << filename;
+
     std::ifstream file(filename);
     std::string line;
 
@@ -21,26 +32,31 @@ void Maze::loadMaze(std::string filename) {
 
     file.clear();
     file.seekg(0);
-    //std::cout << "Rows: " << row << ", " "Cols: " << col << '\n';
+
     for (int i = 0; i < row; ++i) {
         
-        std::getline(file, line);
-        //std::cout << "line: " << line << std::endl; 
+        std::getline(file, line); 
         mazeLayout.push_back(std::vector<Coordinate>());
 
         for (int j = 0; j < col; ++j) {
             Coordinate tempPos(i, j, line[j]);
             mazeLayout[i].push_back(tempPos);
-            //std::cout << "Coordinate (" << tempPos.getX() << ", " << tempPos.getY() << ") - Tile: " << tempPos.getTile() << std::endl;
         }    
     }
     file.close();
 }
 
+// First find the start coordinate
+// Check each adjacent node for a valid move to unvisited node
+// move down valid path
+// if there is no valid path pop nodes off the stack until there is a path.
+void Maze::mazeDFS(Coordinate start) {
+
+}
+
 void Maze::printMaze() {
     for (int i = 0; i < row; i++) {
         for (int j = 0; j < col; j++) {
-            // This has to be very specific about what it is printing out or the program will segfault.
             std::cout << mazeLayout[i][j].getTile();
         }
         std::cout << '\n';
