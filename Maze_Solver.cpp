@@ -16,7 +16,7 @@ Coordinate findStartCoordinate(Maze findCoord) {
 }
 
 int main() {
-  std::string filename = "mazeBadDFSRuntime.txt";
+  std::string filename = "maze_2.txt";
   Maze newMaze;
   
   newMaze.loadMaze(filename);

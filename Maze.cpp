@@ -57,15 +57,15 @@ Coordinate Maze::mazeDFS(Coordinate start) {
         // Mark the current position as visited
         mazeLayout[curCoord.getX()][curCoord.getY()].setTile('.');
 
-        if (curCoord.getTile() == 'G') {
-            // Mark the goal position
-            mazeLayout[curCoord.getX()][curCoord.getY()].setTile('*');
-            return curCoord;
-        }
-
         // Find the next valid move
         Coordinate next = nextCoord(curCoord);
         mazeLayout[next.getX()][next.getY()].visit();
+        if (next.getTile() == 'G') {
+            mazeLayout[next.getX()][next.getY()].setTile('*');
+            printMaze();
+            sleep(1);
+            return next;
+        }
         mazeLayout[next.getX()][next.getY()].setTile('@');
 
         sleep(1);
@@ -76,7 +76,7 @@ Coordinate Maze::mazeDFS(Coordinate start) {
                 history.push(next);
             } else {
                 while(!history.empty() && !validMove(history.top())) {
-                
+                    mazeLayout[next.getX()][next.getY()].setTile(' ');
                     history.pop();
             }
         }
@@ -142,4 +142,5 @@ void Maze::printMaze() {
         }
         std::cout << '\n';
     }
+    std::cout<< u8"\033[2J\033[1;1H"; 
 }
