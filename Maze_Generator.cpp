@@ -4,25 +4,28 @@
 // After the maze is generated it will be sent to text file as well as displayed on the console.
 // This program will make use of graph theory concepts as well as objects in C++
 
-#include <iostream>
-#include <vector>
+#include "Maze.h"
+//#include "Coordinate.h"
 
-class MazeGenerator {
-private:
-	int rows, cols;
-	vector<vector<char>> maze;
-	vector<vector<bool>> visited;
+Coordinate findStartCoordinate(Maze findCoord) {
+  std::vector<std::vector<Coordinate>> initMaze = findCoord.getMazeLayout();
 
-	bool isValid(int row, int col);
-	void dfs(int row, int col);
+  for (int i = 0; i < findCoord.getRow(); i++) {
+    for (int j = 0; j < findCoord.getCol(); j++) {
+      if (initMaze[i][j].getTile() == 'S') {
+        return initMaze[i][j];
+      }
+    }
+  }
 
-public:
-	MazeGenerator(int rows, int cols);
-	void generateMaze();
-	void printMaze();
-};
-
+  return Coordinate(-1, -1, '-');
+}
 
 int main() {
-	
+  	Maze newMaze(10, 10);
+	std::cout << newMaze.getRow() << ", " << newMaze.getCol() << std::endl;
+	newMaze.generateMaze(2, 3);
+	newMaze.printMaze();
+	Coordinate startCoord = findStartCoordinate(newMaze);
+	newMaze.mazeDFS(startCoord);
 }

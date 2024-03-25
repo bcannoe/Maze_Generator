@@ -1,7 +1,15 @@
 #include "Maze.h"
 #include <fstream>
+#include <cstdlib>
+#include <ctime>
+#include <algorithm>
 
 Maze::Maze() {}
+
+Maze::Maze(int row, int col) {
+    this->row = row;
+    this->col = col;
+}
 
 int Maze::getRow() {
     return row;
@@ -44,6 +52,43 @@ void Maze::loadMaze(std::string filename) {
         }    
     }
     file.close();
+}
+
+void Maze::generateMaze(int startX, int startY) {
+    // Initialize the maze with walls
+    mazeLayout.clear();
+    for (int i = 0; i < row; ++i) {
+        mazeLayout.push_back(std::vector<Coordinate>());
+        for(int j = 0; j < col; ++j) {
+            Coordinate tempPos(i, j, '#');
+            mazeLayout[i].push_back(tempPos);
+        }
+    }
+
+    printMaze();
+    // Generate maze using recursive backtracking
+    recursiveBacktracking(startX, startY);
+    
+    // mark start and goal positions
+    mazeLayout[startX][startY].setTile('S');
+    mazeLayout[row - 1][col - 1].setTile('G');
+}
+
+void Maze::recursiveBacktracking(int x, int y) {
+    static const int dx[] = {0, 0, 1, -1};
+    static const int dy[] = {1, -1, 0, 0};
+    std::vector<int> dirs = {0, 1, 2, 3};
+    std::random_shuffle(dirs.begin(), dirs.end());
+
+    for (int dir : dirs) {
+        int nx = x + dx[dir] * 2;
+        int ny = y + dy[dir] * 2;
+        if (nx >= 0 && nx < row && ny >= 0 && ny < col && mazeLayout[nx][ny].getTile() == '#') {
+            mazeLayout[x + dx[dir]][y + dy[dir]].setTile(' ');
+            mazeLayout[nx][ny].setTile(' ');
+            recursiveBacktracking(nx, ny);
+        }
+    }
 }
 
 Coordinate Maze::mazeDFS(Coordinate start) {
