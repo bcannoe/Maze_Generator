@@ -24,7 +24,7 @@ Coordinate findStartCoordinate(Maze findCoord) {
 int main() {
   	Maze newMaze(10, 10);
 	std::cout << newMaze.getRow() << ", " << newMaze.getCol() << std::endl;
-	newMaze.generateMaze(2, 3);
+	newMaze.generateMaze(0, 1);
 	newMaze.printMaze();
 	Coordinate startCoord = findStartCoordinate(newMaze);
 	newMaze.mazeDFS(startCoord);
