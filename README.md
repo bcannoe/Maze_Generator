@@ -13,3 +13,13 @@ The solver is mostly complete barring a few issues, and the generator cannot gen
 to run, run the command
 g++ -o Maze_Generator Maze_Generator.cpp Maze.cpp Coordinate.cpp
 ./Maze_Generator
+
+Todo:
+fix maze randomization
+fix error when current node is on the edge of the maze
+fix unsolvable maze when stack pops all the way back up to start
+add border to maze
+add graphics with openGL
+add different shapes of mazes
+add new maze generation algorithms
+add new maze searching algorithms
