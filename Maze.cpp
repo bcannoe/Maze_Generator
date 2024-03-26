@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+#include <random>
 
 Maze::Maze() {}
 
@@ -71,19 +72,24 @@ void Maze::generateMaze(int startX, int startY) {
     
     // mark start and goal positions
     mazeLayout[startX][startY].setTile('S');
-    mazeLayout[row - 1][col - 1].setTile('G');
+    mazeLayout[row/2][col/2].setTile('G');
 }
 
 void Maze::recursiveBacktracking(int x, int y) {
+    // directions
     static const int dx[] = {0, 0, 1, -1};
     static const int dy[] = {1, -1, 0, 0};
+    // choosing direction
     std::vector<int> dirs = {0, 1, 2, 3};
-    std::random_shuffle(dirs.begin(), dirs.end());
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(dirs.begin(), dirs.end(), g);
 
     for (int dir : dirs) {
         int nx = x + dx[dir] * 2;
         int ny = y + dy[dir] * 2;
-        if (nx >= 0 && nx < row && ny >= 0 && ny < col && mazeLayout[nx][ny].getTile() == '#') {
+
+        if (nx > 0 && nx < row - 1 && ny > 0 && ny < col - 1 && mazeLayout[nx][ny].getTile() == '#') {
             mazeLayout[x + dx[dir]][y + dy[dir]].setTile(' ');
             mazeLayout[nx][ny].setTile(' ');
             recursiveBacktracking(nx, ny);
@@ -136,7 +142,6 @@ Coordinate Maze::mazeDFS(Coordinate start) {
 
 // Check for the next valid node
 Coordinate Maze::nextCoord(Coordinate curCoord) {
-    
     if (mazeLayout[curCoord.getX() + 1][curCoord.getY()].getTile() != '#' && mazeLayout[curCoord.getX() + 1][curCoord.getY()].getTile() != '.') {
         curCoord = mazeLayout[curCoord.getX() + 1][curCoord.getY()];
         return curCoord;

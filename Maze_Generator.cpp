@@ -22,9 +22,9 @@ Coordinate findStartCoordinate(Maze findCoord) {
 }
 
 int main() {
-  	Maze newMaze(10, 10);
+  	Maze newMaze(30, 20);
 	std::cout << newMaze.getRow() << ", " << newMaze.getCol() << std::endl;
-	newMaze.generateMaze(0, 1);
+	newMaze.generateMaze(1, 1);
 	newMaze.printMaze();
 	Coordinate startCoord = findStartCoordinate(newMaze);
 	newMaze.mazeDFS(startCoord);
