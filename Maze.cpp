@@ -36,7 +36,7 @@ void Maze::loadMaze(std::string filename) {
 
     while (std::getline(file, line)) {
         ++row;
-        col = std::max(col, static_cast<int>(line.length()));
+        col = line.length();
     }
 
     file.clear();
@@ -114,12 +114,10 @@ Coordinate Maze::mazeDFS(Coordinate start) {
         if (next.getTile() == 'G') {
             mazeLayout[next.getX()][next.getY()].setTile('*');
             printMaze();
-            sleep(1);
             return next;
         }
         mazeLayout[next.getX()][next.getY()].setTile('@');
 
-        sleep(1);
         printMaze();
         history.push(next);
         if (!history.empty()) {
