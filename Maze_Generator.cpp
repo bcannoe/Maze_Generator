@@ -2,10 +2,9 @@
 // Maze Generator V0.1
 // A program that will generate a maze of a size specified by the user.
 // After the maze is generated it will be sent to text file as well as displayed on the console.
-// This program will make use of graph theory concepts as well as objects in C++
 
 #include "Maze.h"
-//#include "Coordinate.h"
+#include <cstdlib>
 
 Coordinate findStartCoordinate(Maze findCoord) {
   std::vector<std::vector<Coordinate>> initMaze = findCoord.getMazeLayout();
@@ -21,11 +20,19 @@ Coordinate findStartCoordinate(Maze findCoord) {
   return Coordinate(-1, -1, '-');
 }
 
-int main() {
-  	Maze newMaze(30, 20);
-	std::cout << newMaze.getRow() << ", " << newMaze.getCol() << std::endl;
-	newMaze.generateMaze(1, 1);
-	newMaze.printMaze();
-	Coordinate startCoord = findStartCoordinate(newMaze);
-	newMaze.mazeDFS(startCoord);
+int main(int argc, char *argv[]) {
+  // maze is 30 X 30 by default
+  int row = 30, col = 30;
+  if (argc == 1) {
+    ;
+  }
+  else if (argv[1] != NULL) {
+    row = atoi(argv[1]);
+    col = atoi(argv[2]);
+  }
+
+  Maze newMaze(row, col);
+  newMaze.generateMaze(1, 1);
+  newMaze.printMaze();
+  newMaze.exportMaze();
 }

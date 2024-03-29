@@ -11,6 +11,8 @@ public:
   Maze (int, int);
   int getRow ();
   int getCol ();
+  void setRow(int);
+  void setCol(int);  
   std::vector<std::vector<Coordinate>> getMazeLayout ();
   void loadMaze (std::string);
   void generateMaze(int, int);
@@ -19,6 +21,7 @@ public:
   Coordinate nextCoord (Coordinate);
   bool validMove (Coordinate);
   void printMaze();
+  void exportMaze();
   
 
 private:

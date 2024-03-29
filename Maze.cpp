@@ -10,6 +10,7 @@ Maze::Maze() {}
 Maze::Maze(int row, int col) {
     this->row = row;
     this->col = col;
+    std::cout << row << ", " << col << std::endl;
 }
 
 int Maze::getRow() {
@@ -18,6 +19,13 @@ int Maze::getRow() {
 
 int Maze::getCol() {
     return col;
+}
+
+void Maze::setRow(int row) {
+    this->row = row;
+}
+void Maze::setCol(int col) {
+    this->col = col;
 }
 
 std::vector<std::vector<Coordinate>> Maze::getMazeLayout() {
@@ -38,6 +46,7 @@ void Maze::loadMaze(std::string filename) {
         ++row;
         col = line.length();
     }
+    std::cout << col;
 
     file.clear();
     file.seekg(0);
@@ -65,8 +74,6 @@ void Maze::generateMaze(int startX, int startY) {
             mazeLayout[i].push_back(tempPos);
         }
     }
-
-    printMaze();
     // Generate maze using recursive backtracking
     recursiveBacktracking(startX, startY);
     
@@ -127,10 +134,8 @@ Coordinate Maze::mazeDFS(Coordinate start) {
                 while(!history.empty() && !validMove(history.top())) {
                     mazeLayout[next.getX()][next.getY()].setTile(' ');
                     history.pop();
+                }
             }
-        }
-        
-       
         }
     }
 
@@ -190,5 +195,17 @@ void Maze::printMaze() {
         }
         std::cout << '\n';
     }
-    std::cout<< u8"\033[2J\033[1;1H"; 
+    //std::cout<< u8"\033[2J\033[1;1H"; 
+}
+
+void Maze::exportMaze() {
+    // Create and open a file to send a maze to
+    std::ofstream MyFile("Maze.txt");
+
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < col; j++) {
+            MyFile << mazeLayout[i][j].getTile();
+        }
+        MyFile << '\n';
+    }
 }
