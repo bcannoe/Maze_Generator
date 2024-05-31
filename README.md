@@ -8,16 +8,10 @@ DFS is the simplest pathfinding alogorithm, it will go down a hallway until it n
 
 To build project
 ```console
-$ mkdir build
-```
-```console
-$ cd build
-```
-```console
-$ cmake ..
-```
-```console
-$ make
+mkdir build
+cd build
+cmake ..
+make
 ```
 
 Todo:
