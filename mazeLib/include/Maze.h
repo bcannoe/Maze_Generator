@@ -2,7 +2,6 @@
 #include <string>
 #include <iostream>
 #include <stack>
-#include <Windows.h>
 #include "Coordinate.h"
 
 class Maze {
